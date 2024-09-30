@@ -46,14 +46,15 @@ button {
     font-size: 40px;
 }
 
-#top-button { 
-    background-color: rgb(170, 170, 170);
-    color: #080808;
-    font-size: 35px;
-}
 
 .main-button-container > button {
     background-color: #333333cb;
+}
+
+.main-button-container .function-button { 
+    background-color: rgb(170, 170, 170);
+    color: #080808;
+    font-size: 35px;
 }
 
 .main-button-container {

@@ -1,5 +1,6 @@
 const numBtns = document.querySelectorAll(".num-button");
 const opBtns = document.querySelectorAll(".operator-button");
+const funcBtns = document.querySelectorAll(".function-button");
 const equalBtn = document.querySelector(".equals-button");
 const clearBtn = document.querySelector(".clear-button");
 const screenText = document.querySelector(".screen");
@@ -12,6 +13,7 @@ let isWaitingForNum2 = false;
 const orange = "#FF9500";
 const grey = "#333333cb";
 const lightGrey = "rgba(201, 201, 201, 0.603)";
+const midGrey= "rgb(170, 170, 170)";
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -35,10 +37,7 @@ function selectNumber() {
     numBtns.forEach(numBtn => {
         numBtn.addEventListener("click", (event) => {
             const numValue = numBtn.textContent;
-            numBtn.style.backgroundColor = lightGrey;
-            setTimeout(() => {
-                numBtn.style.backgroundColor = grey; 
-            }, 200);
+            buttonColorFlash(numBtn, grey, lightGrey);
             if (isWaitingForNum2) {
                 screenText.textContent = numValue;
                 isWaitingForNum2 = false;
@@ -72,6 +71,7 @@ function selectOperator() {
 
 function selectEquals() {
     equalBtn.addEventListener("click", (event) => {
+        buttonColorFlash(equalBtn, orange, "white", "white", orange);
         num2 = parseFloat(displayValue);
         screenText.textContent = operate(operator, num1, num2);
     });
@@ -86,7 +86,33 @@ function clear() {
     });
 }
 
-selectNumber();
-selectOperator();
-selectEquals();
-clear();
+function selectFuncBtn(){
+    funcBtns.forEach(funcBtn => {
+        funcBtn.addEventListener("click", (event) => {
+            buttonColorFlash(funcBtn, midGrey, "white");
+        });
+    });
+}
+
+function buttonColorFlash(button, bgColor1, bgColor2, textColor1 = null, textColor2 = null) {
+    button.style.backgroundColor = bgColor2;
+    if (textColor1 && textColor2) {
+        button.style.color = textColor2;
+    }
+    setTimeout(() => {
+        button.style.backgroundColor = bgColor1; 
+        if (textColor1 && textColor2) {
+            button.style.color = textColor1
+        }
+    }, 200);
+}
+
+function init() {
+    selectNumber();
+    selectOperator();
+    selectEquals();
+    clear();
+    selectFuncBtn();
+}
+
+init();
