@@ -69,7 +69,7 @@ function selectOperator() {
             event.target.style.backgroundColor = "white";
             event.target.style.color = orange;
             isWaitingForNum2 = true; 
-            if (num1 === undefined) {
+            if (num1 === undefined || num1 && num2) {
                 num1 = parseFloat(displayValue);
             } else {
                 num2 = parseFloat(displayValue);
@@ -83,7 +83,8 @@ function selectEquals() {
         buttonColorFlash(equalBtn, orange, "white", "white", orange);
         num2 = parseFloat(displayValue);
         screenText.textContent = operate(operator, num1, num2);
-        num1 = parseFloat(screenText.textContent); 
+        displayValue = screenText.textContent;
+        num1 = parseFloat(displayValue);
     });
 }
 
@@ -126,7 +127,7 @@ function buttonColorFlash(button, bgColor1, bgColor2, textColor1 = null, textCol
     setTimeout(() => {
         button.style.backgroundColor = bgColor1; 
         if (textColor1 && textColor2) {
-            button.style.color = textColor1
+            button.style.color = textColor1;
         }
     }, 200);
 }
