@@ -1,6 +1,7 @@
 const numBtns = document.querySelectorAll(".num-button");
 const opBtns = document.querySelectorAll(".operator-button");
 const funcBtns = document.querySelectorAll(".function-button");
+const decimalBtn = document.querySelector(".decimal-button");
 const equalBtn = document.querySelector(".equals-button");
 const clearBtn = document.querySelector(".clear-button");
 const plusMinusBtn = document.querySelector(".plus-minus-button")
@@ -55,6 +56,15 @@ function selectNumber() {
             displayValue = screenText.textContent;
         });
     });
+}
+
+function selectDecimal() {
+    decimalBtn.addEventListener("click", () => { 
+        if (!displayValue.includes(".")){
+            screenText.textContent += ".";
+            displayValue = screenText.textContent;
+        }
+    })
 }
 
 function selectOperator() {
@@ -140,6 +150,7 @@ function init() {
     selectFuncBtn();
     selectPlusMinusBtn();
     selectPercentBtn();
+    selectDecimal();
 }
 
 init();
