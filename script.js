@@ -35,7 +35,12 @@ function operate(op, a, b) {
         case "×":
             return multiply(a, b);
         case "÷":
-            return divide(a, b);
+            if (b !== 0) {
+                return divide(a, b);
+            } else {
+                window.alert("Error: Division by 0 is not allowed.");
+                return 0;
+            }
     }
 }
 
@@ -92,7 +97,8 @@ function selectEquals() {
     equalBtn.addEventListener("click", () => {
         buttonColorFlash(equalBtn, orange, "white", "white", orange);
         num2 = parseFloat(displayValue);
-        screenText.textContent = operate(operator, num1, num2);
+        const result = Math.round(parseFloat(operate(operator, num1, num2)) * 100000) / 100000; // Rounds the results to 5 decimal places
+        screenText.textContent = result;
         displayValue = screenText.textContent;
         num1 = parseFloat(displayValue);
     });
