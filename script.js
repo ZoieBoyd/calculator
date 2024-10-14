@@ -6,8 +6,10 @@ let num1;
 let num2;
 let operator;
 let currOpBtn;
+let result;
 
 let isWaitingForNum2 = false;
+let hasCalculated = false;
 
 const orange = "#FF9500";
 const grey = "#333333cb";
@@ -44,6 +46,7 @@ calcBtns.forEach(btn => {
 
 function inputNumber(numBtn) {
     buttonColorFlash(numBtn, grey, lightGrey);
+    hasCalculated = false;
     const num = numBtn.textContent;
     if (isWaitingForNum2) {
         screenText.textContent = num;
@@ -64,7 +67,6 @@ function inputDecimal(decimalBtn) {
 
 function selectOperator(opBtn) {
     currOpBtn = opBtn;
-    operator = opBtn.textContent;
     opBtns.forEach (currBtn => {
         currBtn.style.backgroundColor = orange;
         currBtn.style.color = "white";
@@ -72,11 +74,20 @@ function selectOperator(opBtn) {
     opBtn.style.backgroundColor = "white";
     opBtn.style.color = orange;
     isWaitingForNum2 = true;
-    if (num1 == undefined || num1 && num2) { 
-        // Allows for chained calculations.
-        num1 = parseFloat(screenText.textContent);
+    if(!hasCalculated) {
+        if (num1 == undefined) { 
+            // Allows for chained calculations.
+            num1 = parseFloat(screenText.textContent);
+         } else {
+            num2 = parseFloat(screenText.textContent);
+            result = Math.round(parseFloat(operate(operator, num1, num2)) * 100000) / 100000;
+            num1 = result;
+            screenText.textContent = result;
+        }
+        operator = opBtn.textContent;
+        hasCalculated = true;
     } else {
-        num2 = parseFloat(screenText.textContent);
+        operator = opBtn.textContent;
     }
 }
 
@@ -84,6 +95,8 @@ function clearScreen() {
     num1 = undefined;
     num2 = undefined;
     operator = undefined;
+    result = undefined; 
+    hasCalculated = false;
     screenText.textContent = 0; 
     currOpBtn.style.backgroundColor = orange;
     currOpBtn.style.color = "white";
@@ -98,11 +111,14 @@ function invertSign() {
 }
 
 function selectEquals(equalBtn) {
-    buttonColorFlash(equalBtn, orange, "white", "white", orange);
-    num2 = parseFloat(screenText.textContent);
-    const result = Math.round(parseFloat(operate(operator, num1, num2)) * 100000) / 100000; // Rounds the results to 5 decimal places
-    screenText.textContent = result;
-    num1 = parseFloat(screenText.textContent); // Allows for chained calculations.
+    if(!hasCalculated) {
+        hasCalculated = true;
+        buttonColorFlash(equalBtn, orange, "white", "white", orange);
+        num2 = parseFloat(screenText.textContent);
+        const result = Math.round(parseFloat(operate(operator, num1, num2)) * 100000) / 100000; // Rounds the results to 5 decimal places
+        screenText.textContent = result;
+        num1 = result; // Allows for chained calculations.
+    }
 }
 
 function operate(op, a, b) {
