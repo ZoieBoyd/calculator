@@ -2,6 +2,8 @@ const calcBtns = document.querySelectorAll("button");
 const opBtns = document.querySelectorAll(".operator");
 const screenText = document.querySelector(".screen");
 
+const operators = ["+", "-", "*", "/"];
+
 let num1;
 let num2;
 let operator;
@@ -17,13 +19,21 @@ const lightGrey = "rgba(201, 201, 201, 0.603)";
 const midGrey = "rgb(170, 170, 170)";
 
 addEventListener("keydown", event => {
-    key = event.key;
+    const key = event.key;
     if (!isNaN(key)) {
         inputNumber(document.querySelector(`.number[data-value = "${key}"]`));
     } else if (key === ".") {
         inputDecimal(document.querySelector(".decimal"));
+    } else if (operators.includes(key)) {
+        selectOperator(document.querySelector(`.operator[data-value = "${key}"]`));
+    } else if (key === "=" || key === "Enter") {
+        selectEquals(document.querySelector(".equals"));
     } else if (key === "Escape") {
         clearScreen();
+    } else if (key === "ArrowUp") {
+        invertSign();
+    } else if (key === "%") {
+        convertPercent();
     }
 });
 
