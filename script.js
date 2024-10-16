@@ -16,6 +16,17 @@ const grey = "#333333cb";
 const lightGrey = "rgba(201, 201, 201, 0.603)";
 const midGrey = "rgb(170, 170, 170)";
 
+addEventListener("keydown", event => {
+    key = event.key;
+    if (!isNaN(key)) {
+        inputNumber(document.querySelector(`.number[data-value = "${key}"]`));
+    } else if (key === ".") {
+        inputDecimal(document.querySelector(".decimal"));
+    } else if (key === "Escape") {
+        clearScreen();
+    }
+});
+
 calcBtns.forEach(btn => {
     btn.addEventListener("click", (event) => {
         switch(btn.className) {
@@ -115,7 +126,7 @@ function selectEquals(equalBtn) {
         hasCalculated = true;
         buttonColorFlash(equalBtn, orange, "white", "white", orange);
         num2 = parseFloat(screenText.textContent);
-        const result = Math.round(parseFloat(operate(operator, num1, num2)) * 100000) / 100000; // Rounds the results to 5 decimal places
+        result = Math.round(parseFloat(operate(operator, num1, num2)) * 100000) / 100000; // Rounds the results to 5 decimal places
         screenText.textContent = result;
         num1 = result; // Allows for chained calculations.
     }
