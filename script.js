@@ -24,6 +24,8 @@ addEventListener("keydown", event => {
         inputNumber(document.querySelector(`.number[data-value = "${key}"]`));
     } else if (key === ".") {
         inputDecimal(document.querySelector(".decimal"));
+    } else if (key === "Backspace") {
+        deleteNumber();
     } else if (operators.includes(key)) {
         selectOperator(document.querySelector(`.operator[data-value = "${key}"]`));
     } else if (key === "=" || key === "Enter") {
@@ -83,6 +85,15 @@ function inputDecimal(decimalBtn) {
     buttonColorFlash(decimalBtn, grey, lightGrey);
     if(!screenText.textContent.includes(".")) {
         screenText.textContent += ".";
+    }
+}
+
+function deleteNumber() {
+    if (screenText !== "0") {
+        screenText.textContent = screenText.textContent.slice(0, -1);
+        if(screenText.textContent.length === 0) {
+            screenText.textContent = "0";
+        }
     }
 }
 
