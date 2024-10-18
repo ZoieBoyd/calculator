@@ -17,6 +17,7 @@ const orange = "#FF9500";
 const grey = "#333333cb";
 const lightGrey = "rgba(201, 201, 201, 0.603)";
 const midGrey = "rgb(170, 170, 170)";
+const black = "#080808";
 
 addEventListener("keydown", event => {
     const key = event.key;
@@ -31,11 +32,11 @@ addEventListener("keydown", event => {
     } else if (key === "=" || key === "Enter") {
         selectEquals(document.querySelector(".equals"));
     } else if (key === "Escape") {
-        clearScreen();
+        clearScreen(document.querySelector(".clear"));
     } else if (key === "ArrowUp") {
-        invertSign();
+        invertSign(document.querySelector(".plus-minus"));
     } else if (key === "%") {
-        convertPercent();
+        convertPercent(document.querySelector(".percent"));
     }
 });
 
@@ -52,13 +53,13 @@ calcBtns.forEach(btn => {
                 selectOperator(event.target);
                 break;
             case "function clear":
-                clearScreen();
+                clearScreen(event.target);
                 break;
             case "function plus-minus":
-                invertSign();
+                invertSign(event.target);
                 break;
             case "function percent":
-                convertPercent();
+                convertPercent(event.target);
                 break;
             case "equals":
                 selectEquals(event.target);
@@ -123,7 +124,8 @@ function selectOperator(opBtn) {
     }
 }
 
-function clearScreen() {
+function clearScreen(clearBtn) {
+    buttonColorFlash(clearBtn, midGrey, "white", black, black);
     num1 = undefined;
     num2 = undefined;
     operator = undefined;
@@ -134,11 +136,13 @@ function clearScreen() {
     currOpBtn.style.color = "white";
 }
 
-function convertPercent() { 
+function convertPercent(percentBtn) { 
+    buttonColorFlash(percentBtn, midGrey, "white", black, black);
     screenText.textContent = parseFloat(screenText.textContent) / 100;
 }
 
-function invertSign() {
+function invertSign(invertBtn) {
+    buttonColorFlash(invertBtn, midGrey, "white", black, black);
     screenText.textContent = parseFloat(screenText.textContent) * -1;
 }
 
