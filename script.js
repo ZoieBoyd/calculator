@@ -108,7 +108,7 @@ function selectOperator(opBtn) {
     opBtn.style.color = orange;
     isWaitingForNum2 = true;
     if(!hasCalculated) {
-        if (num1 == undefined) { 
+        if (num1 == undefined || num1 && num2) { 
             // Allows for chained calculations.
             num1 = parseFloat(screenText.textContent);
          } else {
@@ -139,11 +139,17 @@ function clearScreen(clearBtn) {
 function convertPercent(percentBtn) { 
     buttonColorFlash(percentBtn, midGrey, "white", black, black);
     screenText.textContent = parseFloat(screenText.textContent) / 100;
+    if (num2) {
+        num1 = screenText.textContent;
+    }
 }
 
 function invertSign(invertBtn) {
     buttonColorFlash(invertBtn, midGrey, "white", black, black);
     screenText.textContent = parseFloat(screenText.textContent) * -1;
+    if (num2) {
+        num1 = screenText.textContent; 
+    } 
 }
 
 function selectEquals(equalBtn) {
