@@ -138,26 +138,28 @@ function clearScreen(clearBtn) {
 
 function convertPercent(percentBtn) { 
     buttonColorFlash(percentBtn, midGrey, "white", black, black);
-    screenText.textContent = parseFloat(screenText.textContent) / 100;
-    if (num2) {
-        num1 = screenText.textContent;
-    }
+    const percentNum = parseFloat(screenText.textContent) / 100;
+    screenText.textContent = percentNum;
+    if (num2) num1 = percentNum;
 }
 
 function invertSign(invertBtn) {
     buttonColorFlash(invertBtn, midGrey, "white", black, black);
-    screenText.textContent = parseFloat(screenText.textContent) * -1;
-    if (num2) {
-        num1 = screenText.textContent; 
-    } 
+    const invertedNum = parseFloat(screenText.textContent) * -1;
+    screenText.textContent = invertedNum;55
+    if (num2) num1 = invertedNum
 }
 
 function selectEquals(equalBtn) {
     if(!hasCalculated) {
         hasCalculated = true;
         buttonColorFlash(equalBtn, orange, "white", "white", orange);
-        num2 = parseFloat(screenText.textContent);
-        result = Math.round(parseFloat(operate(operator, num1, num2)) * 100000) / 100000; // Rounds the results to 5 decimal places
+        if (num1 !== undefined) {
+            num2 = parseFloat(screenText.textContent);
+            result = Math.round(parseFloat(operate(operator, num1, num2)) * 100000) / 100000; // Rounds the results to 5 decimal places
+        } else { // Handles case when second number is not inputted
+            result = parseFloat(screenText.textContent);
+        }
         screenText.textContent = result;
         num1 = result; // Allows for chained calculations.
     }
