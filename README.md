@@ -1,5 +1,7 @@
 # Calculator
 
+<img src = "images/preview.png" height = "500" alt = "Calculator preview"/>
+
 ## Description
 This project is the final project in The Odin Project's foundation course. The aim of the project is to create a basic functional calculator with an interactive GUI. 
 
