@@ -71,14 +71,17 @@ calcBtns.forEach(btn => {
 function inputNumber(numBtn) {
     buttonColorFlash(numBtn, grey, lightGrey);
     hasCalculated = false;
-    const num = numBtn.textContent;
-    if (isWaitingForNum2) {
-        screenText.textContent = num;
-        currOpBtn.style.backgroundColor = orange;
-        currOpBtn.style.color = "white";
-        isWaitingForNum2 = false;
-    } else {
-        screenText.textContent = screenText.textContent === "0" ? num : screenText.textContent + num;
+    if (screenText.textContent.length < 12) {
+        const num = numBtn.textContent;
+        if (isWaitingForNum2) {
+            screenText.textContent = num;
+            currOpBtn.style.backgroundColor = orange;
+            currOpBtn.style.color = "white";
+            isWaitingForNum2 = false;
+        } else {
+            screenText.textContent = screenText.textContent === "0" ? num : screenText.textContent + num;
+        }
+        adjustFontSize();
     }
 }
 
@@ -132,6 +135,7 @@ function clearScreen(clearBtn) {
     result = undefined; 
     hasCalculated = false;
     screenText.textContent = 0; 
+    adjustFontSize();
     currOpBtn.style.backgroundColor = orange;
     currOpBtn.style.color = "white";
 }
@@ -146,7 +150,7 @@ function convertPercent(percentBtn) {
 function invertSign(invertBtn) {
     buttonColorFlash(invertBtn, midGrey, "white", black, black);
     const invertedNum = parseFloat(screenText.textContent) * -1;
-    screenText.textContent = invertedNum;55
+    screenText.textContent = invertedNum;
     if (num2) num1 = invertedNum
 }
 
@@ -161,6 +165,7 @@ function selectEquals(equalBtn) {
             result = parseFloat(screenText.textContent);
         }
         screenText.textContent = result;
+        adjustFontSize();
         num1 = result; // Allows for chained calculations.
     }
 }
@@ -194,4 +199,14 @@ function buttonColorFlash(button, bgColor1, bgColor2, textColor1 = null, textCol
             button.style.color = textColor1;
         }
     }, 200);
+}
+
+function adjustFontSize() {
+    const maxFontSize = 100;
+    screenText.style.fontSize = maxFontSize + 'px';
+    let fontSize = maxFontSize;
+    while(screenText.scrollWidth > screenText.clientWidth) { // Behaviour if text input overflows it's container.
+        fontSize -= 1;
+        screenText.style.fontSize = fontSize + "px"; 
+    }
 }

@@ -28,6 +28,8 @@ button, .screen {
     text-align: right;
     margin-left: auto;
     padding-right: 18px;
+    overflow: hidden;
+    width: 445px;
 }
 
 .button-container {
