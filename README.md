@@ -1,5 +1,7 @@
 # Calculator
 
+[View live project](https://zoieboyd.github.io/calculator/)
+
 <img src = "images/preview.png" height = "500" alt = "Calculator preview"/>
 
 ## Description
