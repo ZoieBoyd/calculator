@@ -71,7 +71,7 @@ calcBtns.forEach(btn => {
 function inputNumber(numBtn) {
     buttonColorFlash(numBtn, grey, lightGrey);
     hasCalculated = false;
-    if (screenText.textContent.length < 12) {
+    if (screenText.textContent.length < 12 || isWaitingForNum2) {
         const num = numBtn.textContent;
         if (isWaitingForNum2) {
             screenText.textContent = num;
